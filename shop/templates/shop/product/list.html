@@ -1,0 +1,82 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block tittle %}
+	{% if category %}
+		{{ category.name }}
+	{% else %}
+		Товары
+	{% endif %}	
+{% endblock tittle %}
+
+{% block content %}
+
+<div class="container justify-content-center">
+	<h1>Выбери лучшее для себя</h1>
+<div class="card-deck justify-content-center">
+	<div class="row justify-content-md-center">
+		{% for product in products %}
+		<div class="col-auto mr-auto">
+			<div class="card" style="width: 18rem; margin: 10px;">
+				{% if  product.image %}
+					<img class="card-img-top"  src="{{product.image.url}}" alt="{{ product.name}}">
+					{% else %}
+					<img class="card-img-top"  src="{% static "img/card.svg" %}" alt="{{ product.name}}">
+				{% endif %}
+				
+				<div class="card-body rose">
+					<h5 class="card-title">{{product.name}}</h5>
+					<p class="card-text">{% for note in product.all_notes %}
+						{{ note }}
+					{% endfor %}</p>
+
+					<div class="d-flex justify-content-around">
+					<a href="{{ product.get_absolute_url }}" class="btn btn-primary btn-sm">Подробнее</a>
+					<a href="#" class="btn btn-primary btn-sm">Добавить в корзину</a>					
+					</div>
+				</div>
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+	</div>
+	<br>
+</div>
+<br>
+<!--
+<table class="table table-striped">
+	<thead class="thead-dark">
+		<th scope="col">Название</th>
+		<th scope="col">Пол</th>
+		<th scope="col">Бренд</th>
+		<th scope="col">Логотип</th>
+		<th scope="col">Цена</th>
+		<th scope="col">Описание</th>
+		<th scope="col">Верхние ноты</th>
+		<th scope="col">Ноты сердца</th>
+		<th scope="col">Нижние ноты</th>
+	</thead>
+	<tbody>
+		{% for product in products %}
+		<tr>
+		<td>{{product.name}}</td>
+		<td>{{product.category}}</td>
+		<td>{{product.brand}}</td>
+		<td>{% if product.image %}
+				<img src="{% static "img/card.svg" %}" alt="logo {{product.name}}">
+			{% else %}
+				<img src="{% static "img/card1.jpeg" %}" alt="">			
+		{% endif %}
+		</td>
+		<td>{{product.price}}</td>
+		<td>{{product.description | truncatewords:30}}</td>
+		<td>{{product.high_notes}}</td>
+		<td>{{product.heart_notes}}</td>
+		<td>{{product.low_notes}}</td>
+		</tr>
+		{% endfor %}
+	</tbody>
+</table>
+-->
+{% endblock content %}

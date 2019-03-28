@@ -1,0 +1,43 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% load bootstrap4 %}
+
+{% block title %}
+	Добро пожаловать
+{% endblock title %}
+
+{% block content %}
+
+<div class="container-fluid">
+	<h1>Добро пожаловать в лавку парфюмера!</h1>
+	<div class="row">
+	<div class="col-md-3">
+		<p>Integer eu purus mauris. Cras in blandit metus, ac posuere enim. Praesent pellentesque maximus tortor sed eleifend. Nam imperdiet quam sit amet nisl bibendum scelerisque. Pellentesque massa augue, lacinia id sollicitudin at, consequat quis leo. Sed ultrices est libero, vel rutrum nisl pharetra non. In vestibulum non nisl consequat convallis. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Suspendisse velit elit, lacinia vehicula dapibus sed, pharetra vitae lacus. Proin vestibulum faucibus magna, sed auctor nisi gravida eu. Etiam molestie quam leo, id ornare dui euismod vel. Maecenas consectetur tincidunt consectetur. Vivamus ac tortor posuere, maximus mi et, auctor felis. Sed elementum lobortis mauris, non scelerisque odio tempor sit amet.</p>
+	</div>
+	<div class="col-md-9">
+		<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+			<div class="carousel-inner">
+				<div class="carousel-item active">
+					<img class="d-block w-100" src="{{ first_carousel_image.image.url }}" alt="Первый слайд">
+				</div>
+				{% for image in carousel_images %}
+				<div class="carousel-item">
+					<a href="/">
+						<img class="d-block w-100" src="{{ image.image.url }}" alt="{{ image.name }}">
+					</a>
+				</div>
+				{% endfor %}
+			</div>
+			<a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="sr-only">Previous</span>
+			</a>
+			<a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="sr-only">Next</span>
+			</a>
+		</div>
+	</div>
+</div>
+</div>
+{% endblock content %}

@@ -1,0 +1,66 @@
+{% extends "shop/base.html" %}
+{% block title %}
+	{{product.name}}
+{% endblock title %}
+
+{% block content %}
+<h1>{{product.name}}</h1>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 col-md-6 col-lg-5 br-5">
+			<img src="{{ product.image.url }}" width="100%" alt="Изображение {{product.name}}">
+		</div>
+		<div class="col-sm-12 col-md-6 col-lg-7">
+			<div class="card">
+				<div class="card-header">
+					{{product.name}}
+				</div>
+				<div class="card-body">
+					<h5 class="card-title">Описание:</h5>
+					<p class="card-text">{{product.description}}</p>
+				</div>
+				<div class="card-body">
+					{% if product.high_notes.count > 0 %}
+					<h6 class="card-title">Верхние ноты:</h6>
+						<p class="card-text">
+						{% for note in product.high_notes.all %}
+							<a href="{{note.get_absolute_url}}">
+							{{note.name}} 
+						</a>
+						{% endfor %}
+						</p>
+					{% endif %}
+
+					{% if product.heart_level.count > 0 %}
+					<h6 class="card-title">Ноты сердца</h6>
+						<p class="card-text">
+						{% for note in product.heart_level.all %}
+						<a href="{{note.get_absolute_url}}">
+							{{note.name}} 
+						</a>
+						{% endfor %}
+						</p>
+					{% endif %}
+
+					{% if product.low_level.count > 0 %}
+					<h6 class="card-title">Ноты сердца</h6>
+						<p class="card-text">
+						{% for note in product.low_level.all %}
+							<a href="{{note.get_absolute_url}}">
+							{{note.name}} 
+						</a>
+						{% endfor %}
+						</p>
+					{% endif %}
+					<p class="price">₽ <strong>{{ product.price }}</strong></p>
+						<form class="" action="{% url "cart:cart_add" product.id %}" method="post">
+							{% csrf_token %}
+						    {{ cart_product_form.as_p}}					    
+						    <input class="btn btn-primary" type="submit" value="Добавить в корзину">
+						</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}

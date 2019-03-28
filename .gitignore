@@ -1,0 +1,6 @@
+*.cnf
+settings.py
+*.pyc
+*.xlsx
+*.csv
+*/migrations/*

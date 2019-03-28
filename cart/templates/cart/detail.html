@@ -1,0 +1,91 @@
+{% extends "shop/base.html" %}
+{% load static %}
+{% block title %}
+	Корзина
+{% endblock %}
+
+{% block content %}
+	<h1>Корзина</h1>
+	<!--<table class="table">
+		<thead class="table-warning">
+			<tr>
+				<th>Изображение</th>
+				<th>Название</th>
+				<th>Количество</th>
+				<th>Удалить</th>
+				<th>Цена</th>
+				<th>Стоимость</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for item in cart %}
+			{% with product=item.product  %}
+			<tr>
+				<td>
+					<a href="{{ product.get_absolute_url }}">
+						<img src="
+							{% if product.image %}
+								{{ product.image.url }}
+							{% else %}
+								{% static "img/logo.png" %}
+							{% endif %}" width=80px alt="Изображение">
+					</a>
+				</td>
+				<td>{{ product.name }}</td>
+				<td>{{ item.quantity }}</td>
+				<td><a href="{% url "cart:cart_remove" product.id %}">Удалить</a></td>
+				<td>{{ item.price }}</td>
+				<td>{{item.total_price }}</td>
+			</tr>
+			{% endwith %}				
+			{% endfor %}
+			<tr>
+				<td>Всего</td>
+				<td colspan="4"></td>
+				<td>₽{{ cart.get_total_price }}</td>
+			</tr>
+		</tbody>
+	</table>
+	<p>
+		<a href="{% url "shop:product_list" %}">Продолжить покупки</a>
+		<a href="#">Оплатить</a>
+	</p>-->
+	{% for item in cart %}
+	{% with product=item.product  %}
+	<div class="container-fluid justify-content-center">
+		<div class="row align-items-center">
+			<div class="col-md-2 col-lg-2"></div>
+			<div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<img class="img-fluid" src="
+				{% if product.image %}
+				{{ product.image.url }}
+				{% else %}
+				{% static "img/logo.png" %}
+				{% endif %}" alt="Изображение">
+			</div>
+
+			<div class="card col-xs-12 col-sm-12 col-md-4 col-lg-4">
+				<h5><strong>{{ product.name }}</strong></h5>
+				<p>Количество: <strong>{{ item.quantity }}</strong></p>
+				<p>Цена: <strong>{{ item.price }}</strong></p>
+				<p>Стоимость: <strong>₽{{item.total_price }}</strong></p>
+				<p class="align-self-end"><a class="btn btn-primary" href="{% url "cart:cart_remove" product.id %}">Удалить</a></p>
+			</div>
+		</div>
+		<br>
+	</div>
+	{% endwith %}				
+	{% endfor %}
+
+	<div class="container">
+		<div class="row justify-content-end">
+			<p class="">
+				<a class="btn btn-primary" href="{% url "shop:product_list" %}">Продолжить покупки</a>
+				{% if cart %}
+				<a class="btn btn-primary" href="{% url "orders:order_create" %}">Оплатить</a>					
+				{% endif %}
+
+			</p>
+		</div>
+	</div>
+	{% endblock content %}
